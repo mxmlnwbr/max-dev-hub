@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "maxnovu8 | Personal Portfolio",
+  title: "max-dev-hub",
   description: "A modern web application showcasing projects, skills, and professional experience.",
 };
 
