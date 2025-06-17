@@ -70,7 +70,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Deployment
 
-This project is configured for deployment on Vercel.
+This project is deployed on Vercel and can be accessed at:
+
+**[https://max-dev-hub.vercel.app/](https://max-dev-hub.vercel.app/)**
 
 ## Contact
 
