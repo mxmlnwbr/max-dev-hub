@@ -49,15 +49,6 @@ export default function Component() {
             <div className="space-y-6">
               <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
                 Maximilian Weber
-                <br />
-                <span className="text-amber-400">für</span>
-                <div className="mt-4">
-                  <img
-                    src="/novu-logo.svg"
-                    alt="novu"
-                    className="h-12 lg:h-16 inline-block"
-                  />
-                </div>
               </h1>
 
               <div className="h-1 w-16 bg-white"></div>
@@ -72,7 +63,7 @@ export default function Component() {
 
             <div className="space-y-4 text-gray-300">
               <p className="text-lg leading-relaxed">
-                <strong>Warum novu?</strong> Ich liebe es, kreative Projekte von
+                <strong>Meine Motivation?</strong> Ich liebe es, kreative Projekte von
                 Grund auf zu begleiten und dabei digitale Erlebnisse zu
                 schaffen, die Menschen wirklich bewegen.
               </p>
@@ -524,13 +515,7 @@ export default function Component() {
         {/* Why novu */}
         <div className="mt-20 text-center space-y-8">
           <h2 className="text-4xl font-bold flex flex-col items-center justify-center gap-4 md:flex-row md:items-center">
-            Warum
-            <img
-              src="/novu-logo.svg"
-              alt="novu"
-              className="h-10 w-auto md:ml-4"
-            />{" "}
-            + Max = Perfect Match? 🤝
+            Warum ich? 🤝
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6 mt-12">
@@ -539,8 +524,7 @@ export default function Component() {
                 <div className="text-4xl">🚀</div>
                 <h3 className="text-xl font-bold text-white">Innovation</h3>
                 <p className="text-gray-300">
-                  Ihr baut die Zukunft der Kommunikation - ich bringe frische
-                  Ideen und moderne Tech-Skills mit!
+                  Ich bringe frische Ideen und moderne Tech-Skills mit!
                 </p>
               </CardContent>
             </Card>
@@ -656,7 +640,7 @@ export default function Component() {
 
       {/* Footer */}
       <footer className="border-t border-white/10 py-8 text-center text-gray-400">
-        <p>Mit ❤️ erstellt für das novu Team by mxmlnwbr</p>
+        <p>Mit ❤️ erstellt by mxmlnwbr</p>
       </footer>
     </div>
   );

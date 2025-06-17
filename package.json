@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "postinstall": "prisma generate",
-    "dev": "next dev --turbopack",
+    "dev": "pnpm run postinstall && next dev --turbopack",
     "prisma": "npx prisma studio",
     "build": "next build",
     "start": "next start",
