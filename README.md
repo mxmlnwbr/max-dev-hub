@@ -1,31 +1,36 @@
-# My Portfolio
+# Max Dev Hub
 
-This is a personal portfolio website built with Next.js, showcasing my skills, projects, and experience for novu. The site features a modern, responsive design with animated elements and a sleek dark theme.
+A modern personal portfolio website built with Next.js, showcasing my skills, projects, experience, and education. The site features a sleek dark theme with animated elements and a responsive design.
 
-## About the Name: maxnovu8
+## About Me
 
-The project name "maxnovu8" is a creative blend of three elements:
-- **max**: Short for Maximilian, my name
-- **novu**: Representing novu, the company I'm applying to
-- **8**: Representing "innovate" (innov8), inspired by novu's own wordplay in their blog post "inovuate" (https://novu.ch/blog/heute-im-home-office-morgen-im-buero-kein-problem-unser-neues-dashboard-sorgt-fuer-die-perfekte-anwesenheitsuebersicht)
+I'm Maximilian Weber, a Software Engineer based in Brunnen, Switzerland. With a Master's degree in Computer Science from the University of Zurich, I specialize in:
 
-This name reflects both my personal identity and my enthusiasm for joining novu's innovative culture.
+- Frontend development with React and Next.js
+- AI/ML applications and research
+- Full-stack development
 
 ## Features
 
 - **Modern UI**: Built with Next.js 15 and React 19
-- **Responsive Design**: Looks great on all devices
+- **Responsive Design**: Optimized for all devices
 - **Dark Theme**: Sleek black background with accent colors
 - **Animated Elements**: Subtle animations for enhanced user experience
-- **Project Showcase**: Highlighting personal and professional projects
-- **Tech Stack Display**: Visual representation of skills and technologies
+- **Project Showcase**: Highlighting my key projects including:
+  - wind-scope: Webcam & forecast collector for windsport enthusiasts
+  - mythenpark: Website for a local snowpark in Schwyz
+  - TicketHub: Event ticketing platform for Rigibeats Daydance events
+  - Thesen-Plattform: Platform for UZH students to find thesis topics
+- **Tech Stack Display**: Visual representation of my skills and technologies
 - **Experience Timeline**: Professional journey visualization
+- **Education History**: Academic background and achievements
 
 ## Tech Stack
 
 - **Framework**: Next.js 15.3.3 with Turbopack
 - **UI**: React 19.0.0
 - **Styling**: TailwindCSS 4.1.10
+- **Database**: Prisma with PostgreSQL
 - **Icons**: Lucide React
 - **TypeScript**: For type safety
 
@@ -56,17 +61,16 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Project Structure
 
 - `app/`: Main application code
-  - `page.tsx`: Main portfolio page
-  - `about/`: About section
+  - `page.tsx`: Main portfolio page with all sections
+  - `api/`: API routes for backend functionality
   - `layout.tsx`: Layout component
 - `components/`: Reusable UI components
-- `public/`: Static assets including images
+- `public/`: Static assets including profile and project images
+- `prisma/`: Database schema and migrations
 
 ## Deployment
 
-This project is configured for easy deployment on Vercel.
-
-The live deployed version can be found at: [maxnovu8.vercel.app](https://maxnovu8.vercel.app)
+This project is configured for deployment on Vercel.
 
 ## Contact
 
