@@ -307,7 +307,7 @@ export default function Component() {
                 <CardContent className="p-6 space-y-4">
                   <div className="flex items-center gap-3">
                     <Heart className="h-8 w-8 text-orange-400" />
-                    <h3 className="text-xl font-bold text-white">Thesen-Plattform</h3>
+                    <h3 className="text-xl font-bold text-white">Thesis Platform</h3>
                   </div>
                   <p className="text-gray-300">
                     {translations[language].thesesPlatform}
