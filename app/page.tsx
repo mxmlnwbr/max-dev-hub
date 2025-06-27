@@ -357,7 +357,7 @@ export default function Component() {
                     </h3>
                   </div>
                   <div className="min-w-[140px] text-right">
-                    <span className="text-blue-400 text-sm whitespace-nowrap">07/2023 - 04/2025</span>
+                    <span className="text-blue-400 text-sm whitespace-nowrap">01/2021 - 04/2025</span>
                   </div>
                 </div>
                 <p className="text-gray-300">
