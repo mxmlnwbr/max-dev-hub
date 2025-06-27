@@ -1,16 +1,31 @@
 "use client";
 
-import { Code, Heart, Zap, Users, Target, Waves, Mountain } from "lucide-react";
+import { Code, Heart, Zap, Users, Target, Waves, Mountain, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { translations, Language } from "./translations";
 
 export default function Component() {
   const [posts, setPosts] = useState<{id: number, content: string}[]>([]);
   const [inputContent, setInputContent] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+  const pathname = usePathname();
+  
+  // Determine initial language from URL path
+  const initialLanguage: Language = pathname === "/de" ? "de" : "en";
+  const [language, setLanguage] = useState<Language>(initialLanguage);
+  
+  // Function to change language and update URL
+  const changeLanguage = (lang: Language) => {
+    setLanguage(lang);
+    // Update URL without full page reload
+    router.push(`/${lang}`);
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -40,6 +55,25 @@ export default function Component() {
 
       {/* Main Content */}
       <main className="container mx-auto px-6 py-12 relative z-10">
+        {/* Language Toggle Button */}
+        <div className="flex justify-end mb-4">
+          <div className="flex items-center bg-white/5 rounded-full p-1 border border-white/10">
+            <Button 
+              onClick={() => changeLanguage("de")} 
+              className={`flex items-center gap-1 px-3 py-1 rounded-full transition-all ${language === "de" ? 'bg-amber-400 text-black font-medium' : 'bg-transparent text-white hover:bg-white/10'}`}
+              size="sm"
+            >
+              <span className="text-sm">DE</span>
+            </Button>
+            <Button 
+              onClick={() => changeLanguage("en")} 
+              className={`flex items-center gap-1 px-3 py-1 rounded-full transition-all ${language === "en" ? 'bg-amber-400 text-black font-medium' : 'bg-transparent text-white hover:bg-white/10'}`}
+              size="sm"
+            >
+              <span className="text-sm">EN</span>
+            </Button>
+          </div>
+        </div>
 
 
         
@@ -54,18 +88,16 @@ export default function Component() {
               <div className="h-1 w-16 bg-white"></div>
 
               <div className="space-y-2 text-lg text-gray-300">
-                <p>📍 Brunnen, SZ</p>
-                <p>🎂 29 Jahre, Master Computer Science UZH</p>
-                <p>💼 Software Engineer & Creative Problem Solver</p>
-                <p>📧 maximilian.weber@bluewin.ch</p>
+                <p>{translations[language].location}</p>
+                <p>{translations[language].age}</p>
+                <p>{translations[language].profession}</p>
+                <p>{translations[language].email}</p>
               </div>
             </div>
 
             <div className="space-y-4 text-gray-300">
               <p className="text-lg leading-relaxed">
-                <strong>Meine Motivation?</strong> Ich liebe es, kreative Projekte von
-                Grund auf zu begleiten und dabei digitale Erlebnisse zu
-                schaffen, die Menschen wirklich bewegen.
+                {translations[language].motivation}
               </p>
             </div>
           </div>
@@ -90,7 +122,7 @@ export default function Component() {
         {/* Tech Stack & Skills */}
         <div className="mt-20 space-y-12">
           <h2 className="text-3xl font-bold text-center mb-12">
-            Mein <span className="text-amber-400">Tech-Arsenal</span> 🛠️
+            {translations[language].techArsenal}
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -99,10 +131,9 @@ export default function Component() {
                 <div className="w-16 h-16 bg-amber-400/20 rounded-full flex items-center justify-center mx-auto">
                   <Code className="h-8 w-8 text-amber-400" />
                 </div>
-                <h3 className="text-xl font-bold text-white">Frontend</h3>
+                <h3 className="text-xl font-bold text-white">{translations[language].frontend}</h3>
                 <p className="text-gray-300">
-                  React.js, Next.js & TypeScript sind meine Muttersprache!
-                  Aktuell baue ich wind-scope.ch für Windsport-Enthusiasten 🌊
+                  {translations[language].frontendDesc}
                 </p>
                 <div className="flex flex-wrap gap-2 justify-center">
                   <Badge
@@ -138,10 +169,9 @@ export default function Component() {
                 <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto">
                   <Zap className="h-8 w-8 text-blue-400" />
                 </div>
-                <h3 className="text-xl font-bold text-white">AI/ML</h3>
+                <h3 className="text-xl font-bold text-white">{translations[language].ai}</h3>
                 <p className="text-gray-300">
-                  Master Thesis über Explainable AI, LLM Chatbots mit RAG, und
-                  Deep Learning seit 2018! 🤖
+                  {translations[language].aiDesc}
                 </p>
                 <div className="flex flex-wrap gap-2 justify-center">
                   <Badge
@@ -178,11 +208,10 @@ export default function Component() {
                   <Users className="h-8 w-8 text-green-400" />
                 </div>
                 <h3 className="text-xl font-bold text-white">
-                  Angehender Full-Stack Allrounder
+                  {translations[language].fullstack}
                 </h3>
                 <p className="text-gray-300">
-                  Ich entwickle mich zum Full-Stack Allrounder, um ganzheitliche
-                  Probleme kreativ zu lösen - von der Idee bis zur Umsetzung! 💻
+                  {translations[language].fullstackDesc}
                 </p>
                 <div className="flex flex-wrap gap-2 justify-center">
                   <Badge
@@ -218,7 +247,7 @@ export default function Component() {
         {/* Projects Showcase */}
         <div className="mt-20 space-y-8">
           <h2 className="text-3xl font-bold text-center">
-            Meine <span className="text-amber-400">Passion Projects</span> 🚀
+            {translations[language].passionProjects}
           </h2>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -230,8 +259,7 @@ export default function Component() {
                     <h3 className="text-xl font-bold text-white">wind-scope</h3>
                   </div>
                   <p className="text-gray-300">
-                    Webcam & Forecast Collector für Windsportler. Weil ich es satt
-                    hatte, 20 Tabs für die perfekte Session zu öffnen! 🌊
+                    {translations[language].windscope}
                   </p>
                   <div className="text-sm text-blue-400">
                     React.js • Next.js • TypeScript
@@ -248,8 +276,7 @@ export default function Component() {
                     <h3 className="text-xl font-bold text-white">mythenpark</h3>
                   </div>
                   <p className="text-gray-300">
-                    Neue Website für meinen Heimsnowpark in Schwyz. Lokale
-                    Verbundenheit trifft moderne Technik! ⛷️
+                    {translations[language].mythenpark}
                   </p>
                   <div className="text-sm text-purple-400">
                     React.js • Next.js • TypeScript
@@ -266,8 +293,7 @@ export default function Component() {
                     <h3 className="text-xl font-bold text-white">TicketHub</h3>
                   </div>
                   <p className="text-gray-300">
-                    Event Ticketing Platform für unsere Rigibeats Daydance Events.
-                    Von der Idee bis zur Umsetzung! 🎵
+                    {translations[language].tickethub}
                   </p>
                   <div className="text-sm text-green-400">
                     React.js • Next.js • TypeScript
@@ -284,8 +310,7 @@ export default function Component() {
                     <h3 className="text-xl font-bold text-white">Thesen-Plattform</h3>
                   </div>
                   <p className="text-gray-300">
-                    Thesen-Plattform für die UZH - wo Studierende ihre
-                    Bachelor/Master Thesen oder Betreuungen finden! 🎓
+                    {translations[language].thesesPlatform}
                   </p>
                   <div className="text-sm text-orange-400">
                     React.js • Next.js • Node.js • Azure
@@ -299,7 +324,7 @@ export default function Component() {
         {/* Experience Timeline */}
         <div className="mt-20 space-y-8">
           <h2 className="text-3xl font-bold text-center">
-            Mein <span className="text-amber-400">Werdegang</span> 📈
+            {translations[language].career}
           </h2>
 
           <div className="space-y-6">
@@ -309,7 +334,7 @@ export default function Component() {
                 <div className="flex justify-between w-full mb-2">
                   <div>
                     <h3 className="text-xl font-bold text-white">
-                      Data Engineer @ Altoo AG
+                      {translations[language].dataEngineer}
                     </h3>
                   </div>
                   <div className="min-w-[140px] text-right">
@@ -317,8 +342,7 @@ export default function Component() {
                   </div>
                 </div>
                 <p className="text-gray-300">
-                  Scala-Code für Automatisierungspipelines, Transaction
-                  Processing - FinTech! 💰
+                  {translations[language].dataEngineerDesc}
                 </p>
               </div>
             </div>
@@ -329,7 +353,7 @@ export default function Component() {
                 <div className="flex justify-between w-full mb-2">
                   <div>
                     <h3 className="text-xl font-bold text-white">
-                      Software Engineer @ UZH
+                      {translations[language].softwareEngineer}
                     </h3>
                   </div>
                   <div className="min-w-[140px] text-right">
@@ -337,8 +361,7 @@ export default function Component() {
                   </div>
                 </div>
                 <p className="text-gray-300">
-                  LLM Chatbot mit RAG, KlickerUZH Open Source, AI-Correction
-                  Platform - EdTech Innovation! 🎓
+                  {translations[language].softwareEngineerDesc}
                 </p>
               </div>
             </div>
@@ -349,7 +372,7 @@ export default function Component() {
                 <div className="flex justify-between w-full mb-2">
                   <div>
                     <h3 className="text-xl font-bold text-white">
-                      Deep Learning Intern @ Synpulse
+                      {translations[language].intern}
                     </h3>
                   </div>
                   <div className="min-w-[140px] text-right">
@@ -357,8 +380,7 @@ export default function Component() {
                   </div>
                 </div>
                 <p className="text-gray-300">
-                  Text Classifier, AWS Hackathons, Deep Learning Seminars - mein
-                  AI-Journey begann hier! 🤖
+                  {translations[language].internDesc}
                 </p>
               </div>
             </div>
@@ -368,7 +390,7 @@ export default function Component() {
         {/* Education Section */}
         <div className="mt-20 space-y-8">
           <h2 className="text-3xl font-bold text-center">
-            Meine <span className="text-amber-400">Ausbildung</span> 🎓
+            {translations[language].education}
           </h2>
 
           <div className="space-y-6">
@@ -378,14 +400,14 @@ export default function Component() {
                 <div className="flex flex-col md:flex-row justify-between w-full mb-2">
                   <div className="mb-2 md:mb-0">
                     <h3 className="text-xl font-bold text-white">Universität Zürich</h3>
-                    <p className="text-gray-300 break-words">Master in Computer Science (Major Data Science — Minor Informatics)</p>
+                    <p className="text-gray-300 break-words">{translations[language].uzhMaster}</p>
                   </div>
                   <div className="min-w-[140px] md:text-right">
                     <span className="text-purple-400 text-sm whitespace-nowrap">Sept. 2019 - Juli 2023</span>
                   </div>
                 </div>
                 <p className="text-gray-300 mt-2">
-                  Schwerpunkt auf Machine Learning, Data Science und KI-Anwendungen. Master Thesis über Explainable AI.
+                  {translations[language].uzhDesc}
                 </p>
               </div>
             </div>
@@ -396,14 +418,14 @@ export default function Component() {
                 <div className="flex flex-col md:flex-row justify-between w-full mb-2">
                   <div className="mb-2 md:mb-0">
                     <h3 className="text-xl font-bold text-white">Universität St. Gallen</h3>
-                    <p className="text-gray-300 break-words">Bachelor in Betriebswirtschaft</p>
+                    <p className="text-gray-300 break-words">{translations[language].hsgBachelor}</p>
                   </div>
                   <div className="min-w-[140px] md:text-right">
                     <span className="text-amber-400 text-sm whitespace-nowrap">Sept. 2015 - Sept. 2018</span>
                   </div>
                 </div>
                 <p className="text-gray-300 mt-2">
-                  Grundlegende betriebswirtschaftliche Ausbildung. Bachelor Thesis über Digital Prototyping Tools App (Design Thinking).
+                  {translations[language].hsgDesc}
                 </p>
                 
                 {/* Nested Exchange Semester */}
@@ -411,14 +433,14 @@ export default function Component() {
                   <div className="flex flex-col md:flex-row justify-between w-full mb-2">
                     <div className="mb-2 md:mb-0">
                       <h4 className="text-lg font-bold text-white">KEDGE Business School</h4>
-                      <p className="text-gray-300 break-words">Austauschsemester</p>
+                      <p className="text-gray-300 break-words">{translations[language].kedge}</p>
                     </div>
                     <div className="min-w-[140px] md:text-right">
                       <span className="text-cyan-400 text-sm whitespace-nowrap">Sept. 2017 - Dez. 2017</span>
                     </div>
                   </div>
                   <p className="text-gray-300 mt-1">
-                    Auslandssemester in Bordeaux mit Fokus auf Supply Chain Management.
+                    {translations[language].kedgeDesc}
                   </p>
                 </div>
               </div>
@@ -429,7 +451,7 @@ export default function Component() {
         {/* Personal Side */}
         <div className="mt-20 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-2xl p-8 border border-blue-500/20">
           <h2 className="text-3xl font-bold text-center mb-8">
-            <span className="text-amber-400">Beyond Code</span> - Wer ich bin 🌊
+            {translations[language].beyondCode}
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -438,11 +460,10 @@ export default function Component() {
                 <span className="text-blue-400 text-2xl">🏄‍♂️</span>
                 <div>
                   <h4 className="font-bold text-white mb-1">
-                    Wassersport-Enthusiast
+                    {translations[language].watersports}
                   </h4>
                   <p className="text-gray-300">
-                    Wingfoiling, Kitesurfing, Surfing - ISA zertifizierter
-                    Surflehrer!
+                    {translations[language].watersportsDesc}
                   </p>
                 </div>
               </div>
@@ -451,11 +472,10 @@ export default function Component() {
                 <span className="text-amber-400 text-2xl">🎵</span>
                 <div>
                   <h4 className="font-bold text-white mb-1">
-                    Event-Organisator
+                    {translations[language].eventOrg}
                   </h4>
                   <p className="text-gray-300">
-                    Vorstandsmitglied bei Rigibeats - Daydance Event auf der
-                    Rigi. Von der Planung bis zur Umsetzung!
+                    {translations[language].eventOrgDesc}
                   </p>
                 </div>
               </div>
@@ -463,10 +483,9 @@ export default function Component() {
               <div className="flex items-start gap-3">
                 <span className="text-green-400 text-2xl">🌊</span>
                 <div>
-                  <h4 className="font-bold text-white mb-1">Flusssurfen</h4>
+                  <h4 className="font-bold text-white mb-1">{translations[language].riverSurfing}</h4>
                   <p className="text-gray-300">
-                    Vorstand Flusswelle Muota - setze mich für den Erhalt der
-                    Flusswelle im Kanton Schwyz ein.
+                    {translations[language].riverSurfingDesc}
                   </p>
                 </div>
               </div>
@@ -477,11 +496,10 @@ export default function Component() {
                 <span className="text-purple-400 text-2xl">🗣️</span>
                 <div>
                   <h4 className="font-bold text-white mb-1">
-                    Kommunikativ & Zuverlässig
+                    {translations[language].communication}
                   </h4>
                   <p className="text-gray-300">
-                    Deutsch (Muttersprache), Englisch (C1), Französisch
-                    (Grundkenntnisse).
+                    {translations[language].communicationDesc}
                   </p>
                 </div>
               </div>
@@ -490,11 +508,10 @@ export default function Component() {
                 <span className="text-red-400 text-2xl">🎯</span>
                 <div>
                   <h4 className="font-bold text-white mb-1">
-                    Lösungsorientiert
+                    {translations[language].solutionOriented}
                   </h4>
                   <p className="text-gray-300">
-                    Auch bei den grössten Hürden verliere ich nicht den Mut - am
-                    Ende klappt es doch immer.
+                    {translations[language].solutionOrientedDesc}
                   </p>
                 </div>
               </div>
@@ -502,9 +519,9 @@ export default function Component() {
               <div className="flex items-start gap-3">
                 <span className="text-yellow-400 text-2xl">✈️</span>
                 <div>
-                  <h4 className="font-bold text-white mb-1">Weltenbummler</h4>
+                  <h4 className="font-bold text-white mb-1">{translations[language].traveler}</h4>
                   <p className="text-gray-300">
-                    Liebe für die Schweiz 🇨🇭, aber auch für die Welt 🌍. Austauschsemester in Bordeaux, Wassersport weltweit!
+                    {translations[language].travelerDesc}
                   </p>
                 </div>
               </div>
@@ -515,16 +532,16 @@ export default function Component() {
         {/* Why novu */}
         <div className="mt-20 text-center space-y-8">
           <h2 className="text-4xl font-bold flex flex-col items-center justify-center gap-4 md:flex-row md:items-center">
-            Warum ich? 🤝
+            {translations[language].whyMe}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6 mt-12">
             <Card className="bg-white/5 border-white/10 p-6">
               <CardContent className="text-center space-y-4 p-0">
                 <div className="text-4xl">🚀</div>
-                <h3 className="text-xl font-bold text-white">Innovation</h3>
+                <h3 className="text-xl font-bold text-white">{translations[language].innovation}</h3>
                 <p className="text-gray-300">
-                  Ich bringe frische Ideen und moderne Tech-Skills mit!
+                  {translations[language].innovationDesc}
                 </p>
               </CardContent>
             </Card>
@@ -532,10 +549,9 @@ export default function Component() {
             <Card className="bg-white/5 border-white/10 p-6">
               <CardContent className="text-center space-y-4 p-0">
                 <div className="text-4xl">🌊</div>
-                <h3 className="text-xl font-bold text-white">Flow-State</h3>
+                <h3 className="text-xl font-bold text-white">{translations[language].flowState}</h3>
                 <p className="text-gray-300">
-                  Wie beim Surfen finde ich auch im Code den perfekten Flow.
-                  Komplexe Probleme werden zu eleganten Lösungen!
+                  {translations[language].flowStateDesc}
                 </p>
               </CardContent>
             </Card>
@@ -543,9 +559,9 @@ export default function Component() {
             <Card className="bg-white/5 border-white/10 p-6">
               <CardContent className="text-center space-y-4 p-0">
                 <div className="text-4xl">🎯</div>
-                <h3 className="text-xl font-bold text-white">Impact</h3>
+                <h3 className="text-xl font-bold text-white">{translations[language].impact}</h3>
                 <p className="text-gray-300">
-                  Von der Thesis-Matching- bis zur Wind-scope-Plattform - mein Ziel ist es, echte Probleme zu lösen!
+                  {translations[language].impactDesc}
                 </p>
               </CardContent>
             </Card>
@@ -553,9 +569,7 @@ export default function Component() {
 
           <div className="mt-12 p-8 bg-gradient-to-r from-amber-400/10 to-orange-500/10 rounded-2xl border border-amber-400/20">
             <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-              <strong className="text-white">Mein Versprechen:</strong> Ich
-              bringe nicht nur technische Expertise mit, sondern auch
-              Leidenschaft, Kreativität und absolute Zuverlässigkeit. 🏄‍♂️✨
+              {translations[language].promise}
             </p>
           </div>
 
@@ -569,14 +583,14 @@ export default function Component() {
               className="border-white/20 text-white hover:bg-white/10 px-8 py-3 text-lg font-medium hover:bg-amber-400"
             >
               <Link href="https://www.linkedin.com/in/maximilian-weber-668a76157/" target="_blank">
-                💼 LinkedIn Profil
+                {translations[language].linkedinProfile}
               </Link>
             </Button>
             <Button
               className="border-white/20 text-white hover:bg-white/10 px-8 py-3 text-lg font-medium hover:bg-amber-500"
             >
               <Link href="https://github.com/mxmlnwbr" target="_blank">
-                🐙 GitHub Portfolio
+                {translations[language].githubPortfolio}
               </Link>
             </Button>
           </div>
@@ -585,8 +599,8 @@ export default function Component() {
         {/* Feedback Section */}
         <div className="mt-20 rounded-2xl p-8 border border-white/10">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold mb-2">Dein <span className="text-amber-400">Feedback</span></h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">Ich freue mich über Feedback oder Fragen zu meinen Projekten! (Anonym)</p>
+            <h2 className="text-3xl font-bold mb-2">{translations[language].feedback} <span className="text-amber-400"></span></h2>
+            <p className="text-gray-300 max-w-2xl mx-auto">{translations[language].feedbackDesc}</p>
           </div>
           
           <div className="bg-white/5 border border-white/10 rounded-lg p-6 shadow-lg">
@@ -602,7 +616,7 @@ export default function Component() {
                   </div>
                 ))
               ) : (
-                <p className="text-center text-gray-400 italic">Sei der Erste, der Feedback hinterlässt!</p>
+                <p className="text-center text-gray-400 italic">{translations[language].firstFeedback}</p>
               )}
             </div>
             
@@ -612,7 +626,7 @@ export default function Component() {
                 className="flex-grow bg-black/30 border border-white/20 rounded-md p-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-transparent"
                 value={inputContent}
                 onChange={(e) => setInputContent(e.target.value)}
-                placeholder="Dein Feedback..."
+                placeholder={translations[language].yourFeedback}
                 required
               />
               <button 
@@ -631,7 +645,7 @@ export default function Component() {
                 className="bg-gradient-to-r from-amber-400 to-amber-500 text-black font-medium px-6 py-3 rounded-md hover:from-amber-500 hover:to-amber-600 transition-all duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed sm:w-auto w-full"
                 disabled={!inputContent.trim()}
               >
-                Senden
+                {translations[language].send}
               </button>
             </div>
           </div>
@@ -640,7 +654,7 @@ export default function Component() {
 
       {/* Footer */}
       <footer className="border-t border-white/10 py-8 text-center text-gray-400">
-        <p>Mit ❤️ erstellt by mxmlnwbr</p>
+        <p>{translations[language].footer}</p>
       </footer>
     </div>
   );
