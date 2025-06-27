@@ -1,8 +1,12 @@
 import { redirect } from 'next/navigation';
 import Component from '../page';
 
-export default function LanguagePage({ params }: { params: { lang: string } }) {
-  const { lang } = params;
+type Props = {
+  params: { lang: string }
+};
+
+export default async function LanguagePage({ params }: Props) {
+  const { lang } = await params;
   
   // Validate language parameter
   if (lang !== 'de' && lang !== 'en') {
