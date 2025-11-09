@@ -7,7 +7,7 @@ export const translations = {
     // Personal Info
     location: "📍 Brunnen, SZ",
     age: "🎂 30 Jahre, Master Computer Science UZH",
-    profession: "💼 Software Engineer & Creative Problem Solver",
+    profession: "💼 Software Engineer",
     email: "📧 maximilian.weber@bluewin.ch",
     motivation: "Meine Motivation? Ich liebe es, kreative Projekte von Grund auf zu begleiten und dabei digitale Erlebnisse zu schaffen, die Menschen wirklich bewegen.",
     
@@ -92,7 +92,7 @@ export const translations = {
     // Personal Info
     location: "📍 Brunnen, SZ",
     age: "🎂 30 years, Master's in Computer Science UZH",
-    profession: "💼 Software Engineer & Creative Problem Solver",
+    profession: "💼 Software Engineer",
     email: "📧 maximilian.weber@bluewin.ch",
     motivation: "My motivation? I love accompanying creative projects from the ground up and creating digital experiences that truly move people.",
     
