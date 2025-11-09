@@ -595,61 +595,6 @@ export default function Component() {
             </Button>
           </div>
         </div>
-
-        {/* Feedback Section */}
-        <div className="mt-20 rounded-2xl p-8 border border-white/10">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold mb-2">{translations[language].feedback} <span className="text-amber-400"></span></h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">{translations[language].feedbackDesc}</p>
-          </div>
-          
-          <div className="bg-white/5 border border-white/10 rounded-lg p-6 shadow-lg">
-            <div className="mb-6 max-h-48 overflow-y-auto space-y-3">
-              {isLoading ? (
-                <div className="flex justify-center items-center py-8">
-                  <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-amber-400"></div>
-                </div>
-              ) : posts.length > 0 ? (
-                posts.map((post: {id: number, content: string}) => (
-                  <div key={post.id} className="p-3 bg-black rounded">
-                    <p className="text-gray-300">{post.content}</p>
-                  </div>
-                ))
-              ) : (
-                <p className="text-center text-gray-400 italic">{translations[language].firstFeedback}</p>
-              )}
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input 
-                name="content" 
-                className="flex-grow bg-black/30 border border-white/20 rounded-md p-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-transparent"
-                value={inputContent}
-                onChange={(e) => setInputContent(e.target.value)}
-                placeholder={translations[language].yourFeedback}
-                required
-              />
-              <button 
-                type="button" 
-                onClick={() => {
-                  fetch("/api/posts", {
-                    method: "POST",
-                    body: JSON.stringify({ content: inputContent }),
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                  });
-                  setInputContent("");
-                  setPosts([...posts, { id: Date.now(), content: inputContent }]);
-                }}
-                className="bg-gradient-to-r from-amber-400 to-amber-500 text-black font-medium px-6 py-3 rounded-md hover:from-amber-500 hover:to-amber-600 transition-all duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed sm:w-auto w-full"
-                disabled={!inputContent.trim()}
-              >
-                {translations[language].send}
-              </button>
-            </div>
-          </div>
-        </div>
       </main>
 
       {/* Footer */}
